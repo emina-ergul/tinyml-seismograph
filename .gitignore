@@ -1,0 +1,17 @@
+firmware/Debug/
+firmware/Release/
+firmware/.settings/
+.metadata/
+
+*.o
+*.elf
+*.map
+*.list
+*.su
+*.d
+
+__pycache__/
+*.pyc
+.venv/
+
+data/raw/
