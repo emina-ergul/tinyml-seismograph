@@ -13,17 +13,24 @@
 
 ### Configuration
 
-- There is more than one SPI circuit on the board. Because the sensor is wired to the pins of SPI1, I had to enable SPI1 in the .ioc, making Cube
+- There is more than one SPI circuit on the board. Since the sensor is wired to the pins of SPI1, I had to enable SPI1 in the .ioc, making CubeMX generate the required code (hspi1 struct, MX_SPI1_INIT()).
+
+- I struggled to find which SPI mode to use for the sensor so tried SPI modes 0-3 and got a response on 0 by making an LED light up if the WHO_am_i reg was receievd.
 
 ## Terms
 - CubeMX: Graphical configuration and code generator tool for STM32 microcontrollers. Writes code for hardware configurations.
 - SPI: serial peripheral interface.
 - SCLK/SCK: SPI clock.
-- CPOL: clock polarity
+- SPI Bus: clock, MISO, and MOSI.
+- clock edge: The moment the clock switches from 0-1 (rising) or 1-0 (falling). Controleld by CPHA and CPOL.
+- CPOL: clock polarity, sets the clocks resting level between transfers (low = rests at 0, high = rests at 1)
+- CPHA: defines whether to sample on the first or second edge.
+- CS: chip select, dedicated wire per device to let it know its beoing addressed (One SPI bus can be shared by multiple devices).
 - GPIO: general purpose input/output (pins on chip).
-- Full duplex: data moves on 2 separate wires, MOSI and MISO at the same time (1 bit sent and received per clock pulse)
+- Full duplex: data moves on 2 separate wires, MOSI and MISO at the same time (1 bit sent and received per clock pulse).
 - MOSI: driven by the controller to send commands to the peripheral.
 - MISO: drievn by the peripheral to send data back into the controller.
+WHO_AM_I: a standard read only reg for external sensors to tell you your configuration works.
 
 
 ### Manuals
