@@ -22,15 +22,16 @@
 - SPI: serial peripheral interface.
 - SCLK/SCK: SPI clock.
 - SPI Bus: clock, MISO, and MOSI.
-- clock edge: The moment the clock switches from 0-1 (rising) or 1-0 (falling). Controleld by CPHA and CPOL.
+- clock edge: The moment the clock switches from 0-1 (rising) or 1-0 (falling). The edge used for sampling is set by CPOL and CPHA.
 - CPOL: clock polarity, sets the clocks resting level between transfers (low = rests at 0, high = rests at 1)
 - CPHA: defines whether to sample on the first or second edge.
 - CS: chip select, dedicated wire per device to let it know its beoing addressed (One SPI bus can be shared by multiple devices).
+- PE3: a regular GPIO pin the board wires to the accelerometer's CS input, controlled using code.
 - GPIO: general purpose input/output (pins on chip).
 - Full duplex: data moves on 2 separate wires, MOSI and MISO at the same time (1 bit sent and received per clock pulse).
-- MOSI: driven by the controller to send commands to the peripheral.
+- MOSI: driven by the controller to send data/commands to the peripheral.
 - MISO: drievn by the peripheral to send data back into the controller.
-WHO_AM_I: a standard read only reg for external sensors to tell you your configuration works.
+WHO_AM_I: a standard read only reg for external devices like sensors containing a fixed device ID to tell you if communication works.
 
 
 ### Manuals
