@@ -45,6 +45,7 @@ SPI_HandleTypeDef hspi1;
 /* USER CODE BEGIN PV */
 volatile uint8_t who_am_i = 0;
 volatile uint8_t sensor_ok = 0;
+volatile uint8_t altered_ctrl_reg4 = 0;
 
 /* USER CODE END PV */
 
@@ -58,11 +59,14 @@ static void MX_SPI1_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-#define LIS_ON()   HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3, GPIO_PIN_RESET)
-#define LIS_OFF()  HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3, GPIO_PIN_SET)
+#define LIS_ON()   HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3, GPIO_PIN_RESET) /*sets low*/
+#define LIS_OFF()  HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3, GPIO_PIN_SET)  /*sets high*/
 
 #define WHO_AM_I_REG        0x0F
 #define WHO_AM_I_LIS3DSH    0x3F
+
+#define CTRL_REG4  0x20
+#define CTRL_write 0x6F
 
 static uint8_t read_reg(uint8_t reg)
 {
@@ -74,6 +78,17 @@ static uint8_t read_reg(uint8_t reg)
     LIS_OFF();
 
     return rx[1];
+}
+
+#define sensor
+
+static void write_reg(uint8_t reg, uint8_t value)
+{
+	uint8_t tx[2] = { (uint8_t)(reg), value };
+
+	LIS_ON();
+	HAL_SPI_Transmit(&hspi1, tx, 2, HAL_MAX_DELAY);
+	LIS_OFF();
 }
 
 /* USER CODE END 0 */
@@ -121,6 +136,17 @@ int main(void)
   } else {
 	  HAL_GPIO_WritePin(GPIOD, GPIO_PIN_14, GPIO_PIN_SET);
 	  sensor_ok = 0;
+  }
+
+  write_reg(CTRL_REG4, CTRL_write);
+  HAL_Delay(10);
+
+  altered_ctrl_reg4 = read_reg(CTRL_REG4);
+
+  if (altered_ctrl_reg4 == CTRL_write) {
+	  HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, GPIO_PIN_SET);
+  } else {
+  	  HAL_GPIO_WritePin(GPIOD, GPIO_PIN_13, GPIO_PIN_SET);
   }
 
   /* USER CODE END 2 */
