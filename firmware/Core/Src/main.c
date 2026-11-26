@@ -46,6 +46,7 @@ SPI_HandleTypeDef hspi1;
 volatile uint8_t who_am_i = 0;
 volatile uint8_t sensor_ok = 0;
 volatile uint8_t altered_ctrl_reg4 = 0;
+int16_t ax, ay, az;
 
 /* USER CODE END PV */
 
@@ -67,6 +68,7 @@ static void MX_SPI1_Init(void);
 
 #define CTRL_REG4  0x20
 #define CTRL_write 0x6F
+#define OUT_X_L 0x28
 
 static uint8_t read_reg(uint8_t reg)
 {
@@ -80,8 +82,6 @@ static uint8_t read_reg(uint8_t reg)
     return rx[1];
 }
 
-#define sensor
-
 static void write_reg(uint8_t reg, uint8_t value)
 {
 	uint8_t tx[2] = { (uint8_t)(reg), value };
@@ -89,6 +89,20 @@ static void write_reg(uint8_t reg, uint8_t value)
 	LIS_ON();
 	HAL_SPI_Transmit(&hspi1, tx, 2, HAL_MAX_DELAY);
 	LIS_OFF();
+}
+
+static void read_xyz(int16_t *x, int16_t *y, int16_t *z)
+{
+	uint8_t tx[7] = { (uint8_t)(OUT_X_L | 0x80), 0,0,0,0,0,0 };
+	uint8_t rx[7] = { 0 };
+
+	LIS_ON();
+	HAL_SPI_TransmitReceive(&hspi1, tx, rx, 7, HAL_MAX_DELAY);
+	LIS_OFF();
+
+	*x = (int16_t)(rx[1] | (rx[2] << 8));
+	*y = (int16_t)(rx[3] | (rx[4] << 8));
+	*z = (int16_t)(rx[5] | (rx[6] << 8));
 }
 
 /* USER CODE END 0 */
@@ -148,6 +162,8 @@ int main(void)
   } else {
   	  HAL_GPIO_WritePin(GPIOD, GPIO_PIN_13, GPIO_PIN_SET);
   }
+
+  read_xyz(&ax, &ay, &az);
 
   /* USER CODE END 2 */
 
