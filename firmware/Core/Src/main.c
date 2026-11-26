@@ -63,7 +63,6 @@ static void MX_SPI1_Init(void);
 
 #define WHO_AM_I_REG        0x0F
 #define WHO_AM_I_LIS3DSH    0x3F
-#define WHO_AM_I_LIS302DL   0x3B
 
 static uint8_t read_reg(uint8_t reg)
 {
@@ -117,16 +116,11 @@ int main(void)
   who_am_i = read_reg(WHO_AM_I_REG);
 
   if (who_am_i == WHO_AM_I_LIS3DSH) {
-	  HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, GPIO_PIN_SET);
-	  sensor_ok = 1;
-  }
-  else if (who_am_i == WHO_AM_I_LIS302DL) {
 	  HAL_GPIO_WritePin(GPIOD, GPIO_PIN_15, GPIO_PIN_SET);
-	  	  sensor_ok = 1;
+	  sensor_ok = 1;
   } else {
 	  HAL_GPIO_WritePin(GPIOD, GPIO_PIN_14, GPIO_PIN_SET);
 	  sensor_ok = 0;
-
   }
 
   /* USER CODE END 2 */
