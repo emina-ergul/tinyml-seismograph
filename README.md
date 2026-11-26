@@ -35,6 +35,8 @@ WHO_AM_I: a standard read only reg for external devices like sensors containing 
 
 - bitwise OR: compares corresponding bits and returns 1 if one bit is 1 or 0, or 0 if both bits are 0.
 
+- Nyquist's rule: to capture a signal of a certain frequency, you must sample at more than double that frequency. Half your sample rate is called the Nyquist frequency (e.g. 50hz if sample rate is 100hz), and it's the highest frequency you can accuratley record.
+
 
 ### Links and Manuals
 - <https://www.st.com/en/evaluation-tools/stm32f4discovery.html>
