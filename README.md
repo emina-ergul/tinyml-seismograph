@@ -4,7 +4,7 @@
     - built around the STM32F407VGT6 32-bit Arm Cortex-M4 microcontroller
     - 1 MB of Flash memory and 192 KB of SRAM
     -  ST-MEMS 3-axis digital accelerometer
-    - supports both IC2 and SPI but the accelerometer         specifically is SPI
+    - supports both IC2 and SPI but the accelerometer specifically is SPI
     - STM32CubeIDE compatible
 
 - HAL library import (hardware abstraction layer) is an STM specific library
@@ -33,7 +33,12 @@
 - MISO: drievn by the peripheral to send data back into the controller.
 WHO_AM_I: a standard read only reg for external devices like sensors containing a fixed device ID to tell you if communication works.
 
+- bitwise OR: compares corresponding bits and returns 1 if one bit is 1 or 0, or 0 if both bits are 0.
 
-### Manuals
-<https://www.st.com/resource/en/datasheet/lis3dsh.pdf>
-<https://github.com/STMicroelectronics/stm32-lis3dsh/blob/main/lis3dsh.h>
+
+### Links and Manuals
+- <https://www.st.com/en/evaluation-tools/stm32f4discovery.html>
+- <https://www.st.com/resource/en/user_manual/dm00039084.pdf>
+- <https://www.st.com/en/microcontrollers-microprocessors/stm32f407vg.html>
+- <https://www.st.com/resource/en/datasheet/lis3dsh.pdf>
+- <https://github.com/STMicroelectronics/stm32-lis3dsh/blob/main/lis3dsh.h>
