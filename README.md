@@ -40,7 +40,7 @@ WHO_AM_I: a standard read only reg for external devices like sensors containing 
 
 ### Links and Manuals
 - <https://www.st.com/en/evaluation-tools/stm32f4discovery.html>
-- <https://www.st.com/resource/en/user_manual/dm00039084.pdf>
+- <https://www.st.com/resource/en/user_manual/um1472-discovery-kit-with-stm32f407vg-mcu-stmicroelectronics.pdf>
 - <https://www.st.com/en/microcontrollers-microprocessors/stm32f407vg.html>
 - <https://www.st.com/resource/en/datasheet/lis3dsh.pdf>
 - <https://github.com/STMicroelectronics/stm32-lis3dsh/blob/main/lis3dsh.h>
